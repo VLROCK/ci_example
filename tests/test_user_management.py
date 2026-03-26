@@ -52,6 +52,10 @@ class TestUserManagement(unittest.TestCase):
         self.assertIsNone(get_user(user["id"]))
 
     def list_users(self):
+        create_user("Usuario C", "c@exemplo.com", "Senha123!", "1990-01-01")
+        create_user("Usuario A", "a@exemplo.com", "Senha123!", "1990-01-01")
+        create_user("Usuario B", "b@exemplo.com", "Senha123!", "1990-01-01")
+
         usuarios = list_users()
         emails = [u["email"] for u in usuarios]
         emails_ordenado = emails.sort()

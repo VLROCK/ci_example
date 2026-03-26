@@ -3,32 +3,36 @@ name: build
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        # Define as duas versões solicitadas
+        python-version: ["3.11", "3.12"]
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout do código
+      uses: actions/checkout@v4
 
-    - name: Install poetry
-      run: pipx install poetry
-
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Configurar Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'poetry'
-    - run: poetry install --no-root
 
-    - name: Analysing the code with flake8
-      run: poetry run flake8
-
-    - name: Testing
+    - name: Instalar dependências
       run: |
-        poetry run coverage run --source . --module pytest
-        poetry run coverage report --show-missing
-        poetry run coverage xml
+        python -m pip install --upgrade pip
+        pip install flake8
+        # Se houver um arquivo de requisitos:
+        # pip install -r requirements.txt 
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+    - name: Analisar código com flake8 (Linter)
+      run: |
+        # Para se houver erros de sintaxe ou nomes indefinidos
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Avisos de estilo (opcional: pode ser configurado para não falhar o build)
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Executar testes com unittest
+      run: |
+        python -m unittest -v

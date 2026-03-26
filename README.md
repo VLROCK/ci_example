@@ -4,7 +4,7 @@ Este repositório contem um exercício para implementação de um pipeline de CI
 
 ## Tarefas
 
-1. Clone o repositório na sua máquina.
+1. Faça um fork do repositório e clone-o na sua máquina.
 
 2. Rode os testes usando o unnitest do Python.
 ```

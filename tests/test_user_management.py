@@ -58,7 +58,7 @@ class TestUserManagement(unittest.TestCase):
 
         usuarios = list_users()
         emails = [u["email"] for u in usuarios]
-        emails_ordenado = emails.sort()
+        emails_ordenado = sorted(emails)
 
         self.assertEqual(emails,emails_ordenado)
 

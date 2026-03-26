@@ -51,6 +51,12 @@ class TestUserManagement(unittest.TestCase):
         self.assertTrue(delete_user(user["id"]))
         self.assertIsNone(get_user(user["id"]))
 
+    def list_users(self):
+        usuarios = list_users()
+        emails = [u["email"] for u in usuarios]
+        emails_ordenado = emails.sort()
+
+        self.assertEqual(emails,emails_ordenado)
 
 if __name__ == "__main__":
     unittest.main()

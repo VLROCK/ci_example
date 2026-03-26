@@ -26,7 +26,10 @@ def get_user(user_id: int) -> Optional[Dict]:
 
 
 def list_users() -> List[Dict]:
-    return sorted(_db.list()["email"])
+   lista_original = _db.list()
+    
+    # 2. Retorna a lista ordenada usando a chave 'email' de cada dicionário
+   return sorted(lista_original, key=lambda usuario: usuario["email"])
 
 
 def delete_user(user_id: int) -> bool:

@@ -51,7 +51,7 @@ class TestUserManagement(unittest.TestCase):
         self.assertTrue(delete_user(user["id"]))
         self.assertIsNone(get_user(user["id"]))
 
-    def list_users(self):
+    def test_list_users(self):
         create_user("Usuario C", "c@exemplo.com", "Senha123!", "1990-01-01")
         create_user("Usuario A", "a@exemplo.com", "Senha123!", "1990-01-01")
         create_user("Usuario B", "b@exemplo.com", "Senha123!", "1990-01-01")
